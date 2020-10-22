@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.maggie.s4.board.qna.QnaDAO" >
+	<select id="getList" parameterType="Pager" resultType="QnaDTO">
+		SELECT * FROM
+			(SELECT rownum R, N.* FROM
+				(SELECT * FROM qna WHERE
+				<choose>
+					<when test="kind == 'tt'">title</when>
+					<when test="kind == 'wr'">writer</when>
+					<otherwise>contents</otherwise>
+				</choose>
+				like '%'||#{search}||'%' 
+				ORDER BY num DESC
+			) N
+		) WHERE R BETWEEN #{startRow} AND #{lastRow}
+		
+	</select>
+	<select id="getCount" parameterType="Pager" resultType="Long">
+		SELECT COUNT(num) FROM qna
+		WHERE 
+			<choose>
+				<when test="kind == 'tt'">title</when>
+				<when test="kind == 'wr'">writer</when>
+				<otherwise>contents</otherwise>
+			</choose>
+			like '%'||#{search}||'%'
+	</select>
+	<select id="getSelect" parameterType="QnaDTO" resultType="QnaDTO">
+		SELECT * FROM qna WHERE num = #{num}
+	</select>
+	<insert id="setWrite" parameterType="QnaDTO">
+		INSERT INTO qna values(qna_seq.NEXTVAL, #{title}, #{writer}, #{contents}, sysDate, 0, 0, 0, 0)
+	</insert>
+	<insert id="setReply" parameterType="QnaDTO">
+		INSERT INTO qna values(qna_seq.NEXTVAL, #{title}, #{writer}, #{contents}, sysDate, 0, #{ref}, #{step}, #{depth})
+	</insert>
+	
+	<update id="setUpdate" parameterType="Pager">
+		UPDATE qna SET title=#{title}, writer=#{writer},contents=#{contents}
+		WHERE num=#{num}
+	</update>
+	<delete id="setDelete" parameterType="QnaDTO">
+		DELETE FROM qna
+		WHERE num=#{num}
+	</delete>
+
+</mapper>

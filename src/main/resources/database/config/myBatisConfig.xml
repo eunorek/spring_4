@@ -6,7 +6,13 @@
 <configuration>
 	<typeAliases>
 		<!-- typeAlias type="풀패키지명" alias="별칭" -->
-
+		<typeAlias type="java.lang.Long" alias="Long"/>
+		
+		<typeAlias type="com.maggie.s4.util.Pager" alias="Pager"/>
+		
+		<typeAlias type="com.maggie.s4.board.BoardDTO" alias="BoardDTO"/>
+		<typeAlias type="com.maggie.s4.board.notice.NoticeDTO" alias="NoticeDTO"/>
+		<typeAlias type="com.maggie.s4.board.qna.QnaDTO" alias="QnaDTO"/>
 	</typeAliases>
 	
 </configuration>

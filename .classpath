@@ -35,7 +35,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/SIST/.m2/repository/org/springframework/spring-test/4.3.2.RELEASE/spring-test-4.3.2.RELEASE.jar" sourcepath="C:/Users/SIST/.m2/repository/org/springframework/spring-test/4.3.2.RELEASE/spring-test-4.3.2.RELEASE-sources.jar">
+	<classpathentry kind="lib" path="/Users/eunorek/.m2/repository/org/springframework/spring-test/4.3.2.RELEASE/spring-test-4.3.2.RELEASE.jar" sourcepath="/Users/eunorek/.m2/repository/org/springframework/spring-test/4.3.2.RELEASE/spring-test-4.3.2.RELEASE-sources.jar">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="test" value="true"/>
