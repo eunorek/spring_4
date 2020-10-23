@@ -30,10 +30,19 @@
 	      <label for="contents">Contents:</label>
 	      <textarea class="form-control" rows="10" id="contents" name="contents"></textarea>
 	    </div>
-	    <!-- submit button -->
-	    <input type="button" value="write" class="btn btn-primary" id="btn"/>
+	    <c:if test="${not empty member}">
+	    	<input type="button" value="write" class="btn btn-primary" id="btn"/>
+	    </c:if>	    
 	  </form>
 	</div>
 	<script type="text/javascript" src="../resources/js/boardWrite.js"></script>
+	<script type="text/javascript">
+		if(${board == 'qna'}){
+			$("#writer").val("${member.id}")
+			$("#writer").setAttribute("readonly", "readonly")
+		}
+		
+
+	</script>
 </body>
 </html>
