@@ -42,7 +42,7 @@ public class QnaService implements BoardService {
 		return qnaDAO.getOne(boardDTO);
 	}
 	
-	public int setInsertReply(BoardDTO boardDTO) throws Exception {
-		return qnaDAO.setInsertReply(boardDTO);
-	}
+//	public int setInsertReply(BoardDTO boardDTO) throws Exception {
+//		return qnaDAO.setInsertReply(boardDTO);
+//	}
 }
