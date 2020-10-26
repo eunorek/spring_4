@@ -17,7 +17,7 @@
 	</select>
 	
 	<insert id="setInsert" parameterType="NoticeDTO">
-		INSERT INTO board values(notice_seq.NEXTVAL, #{title}, #{writer}, #{contents}, sysdate, 0)
+		INSERT INTO board values(board_seq.NEXTVAL, #{title}, #{writer}, #{contents}, sysdate, 0)
 	</insert>
 	
 	<select id="getList" resultType="NoticeDTO" parameterType="Pager">

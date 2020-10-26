@@ -73,7 +73,7 @@
 			<span class="c1" title="${pager.lastPage+1 }">다음 ►</span>
 		</c:if>			
 	</div>
-	<a href="./${board}Write" class="btn btn-warning btn-lg" role="button" id="btn-write" hidden>Write</a>
+	<a href="./${board}Write" class="btn btn-warning btn-lg" role="button" id="btn-write" style="visibility: hidden">Write</a>
 </div>	
 </body>
 
@@ -96,12 +96,9 @@
 		$("#searchForm").submit()
 	})
 	
-	if(${empty member}){		
-	}else if(${board eq 'qna'}){
-		$("#btn-write").setAttribute("hidden", false)
-	}else if(${member.id eq 'admin'}){
-		$("#btn-write").setAttribute("hidden", false)
-		}
+	if(${empty member}){	
+	}else if(${board == 'qna' || member.id == 'admin'}){
+		$("#btn-write").css("visibility", "visible")
 	}
 </script>
 </html>

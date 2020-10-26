@@ -31,18 +31,17 @@
 	      <textarea class="form-control" rows="10" id="contents" name="contents"></textarea>
 	    </div>
 	    <c:if test="${not empty member}">
-	    	<input type="button" value="write" class="btn btn-primary" id="btn"/>
+	    	<input type="button" value="write" class="btn btn-primary" id="btn-write" style="visibility: hidden"/>
 	    </c:if>	    
 	  </form>
 	</div>
 	<script type="text/javascript" src="../resources/js/boardWrite.js"></script>
 	<script type="text/javascript">
-		if(${board == 'qna'}){
-			$("#writer").val("${member.id}")
-			$("#writer").setAttribute("readonly", "readonly")
+		if(${empty member}){	
+		}else if(${board == 'qna' || member.id == 'admin'}){
+			$("#btn-write").css("visibility", "visible")
 		}
 		
-
 	</script>
 </body>
 </html>
