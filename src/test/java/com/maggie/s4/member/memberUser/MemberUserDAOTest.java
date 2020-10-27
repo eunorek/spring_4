@@ -30,4 +30,20 @@ public class MemberUserDAOTest extends MyTestCase {
 		dto = memberUserDAO.getMemberLogin(dto);
 		assertNull(dto);
 	}
+	
+	@Test
+	public void getMemberIdCheckTestFail() throws Exception {
+		MemberDTO dto = new MemberDTO();
+		dto.setId("djsfkjsdkhafkg");
+		dto = memberUserDAO.getMemberIdCheck(dto);
+		assertNull(dto);
+	}
+	
+	@Test
+	public void getMemberIdCheckTestSuccess() throws Exception {
+		MemberDTO dto = new MemberDTO();
+		dto.setId("admin");
+		dto = memberUserDAO.getMemberIdCheck(dto);
+		assertNotNull(dto);
+	}	
 }

@@ -37,5 +37,10 @@ public class MemberUserDAO implements MemberDAO{
 	public int setMemberInsert(MemberDTO memberDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE+"setMemberInsert", memberDTO);
 	}
+
+	@Override
+	public MemberDTO getMemberIdCheck(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getMemberIdCheck", memberDTO);
+	}
 	
 }

@@ -123,4 +123,17 @@ public class MemberUserController {
 		return mv;
 	}
 	
+	@GetMapping("memberIdCheck")
+	public ModelAndView getMemberIdCheck(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		memberDTO = memberUserService.getMemberIdCheck(memberDTO);
+		int result = 1; // id already exists
+		if(memberDTO == null) {
+			result = 0;
+		}
+		mv.addObject("message", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
 }

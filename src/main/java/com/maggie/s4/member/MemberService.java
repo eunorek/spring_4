@@ -6,4 +6,6 @@ public interface MemberService {
 	public int setMemberUpdate(MemberDTO memberDTO) throws Exception;
 	
 	public int setMemberDelete(MemberDTO memberDTO) throws Exception;
+	
+	public MemberDTO getMemberIdCheck(MemberDTO memberDTO) throws Exception;
 }
