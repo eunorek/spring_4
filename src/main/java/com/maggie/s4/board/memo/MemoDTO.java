@@ -19,6 +19,7 @@ public class MemoDTO {
 		this.writer = writer;
 	}
 	public String getContents() {
+		return contents;
 	}
 	public void setContents(String contents) {
 		this.contents = contents;
