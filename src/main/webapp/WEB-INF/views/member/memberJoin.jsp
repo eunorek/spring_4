@@ -33,7 +33,7 @@
 <body>
 	<c:import url="../template/header.jsp"></c:import>
 	<div class="container">
-		<form id="form-submit">
+		<form id="form-submit" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="id">ID:</label> 
 				<input type="text" class="form-control"
@@ -60,18 +60,35 @@
 				<label for="email">이메일 주소:</label> <input type="text"
 					class="form-control" id="email" placeholder="이메일 주소를 입력하세요"
 					name="email">
-				<div id="email-check" class="validity-check-msg" type="email"></div>
+				<div id="email-check" class="validity-check-msg"></div>
 			</div>
+			<div class="form-group">
+				<label for="file">프로필 사진:</label> <input type="file"
+					class="form-control" id="photo" name="photo">
+				<div id="email-check" class="validity-check-msg"></div>
+			</div>			
 			<input type="submit" class="btn btn-success" value="회원 가입하기" id="btn-join">
+			<button>Test Join</button>		
 		</form>
 	</div>
 <script type="text/javascript">
-	var idDupCheck = false
-	var pwMatchCheck = false
-	var pwLenCheck = false
-	var nameEmptyCheck = false
-	var emailEmptyCheck = false
-	
+
+	$("#btn-join").click(function(){
+		emptyCheck()
+		$("#form-submit").submit()
+	})
+
+
+
+//******************** EVENTS **************************
+
+
+
+
+
+
+//******************** FUNCTIONS **************************
+// returns check result(true or false) and modifies validity-check-msg
 	// empty check
 	function emptyCheck(){
 		$(".form-control").each(function(){
@@ -82,24 +99,9 @@
 		})
 	}
 	
-	// id dup check & submit check
-	
-	$("#btn-join").click(function(){
+	// id dup check 
+	function idDupCheck(){
 		var id = $("#id").val()
-		$.get("./memberIdCheck?id=" + id, function(result){
-			if(result == 1){
-				alert("이미 사용중인 아이디입니다")
-			}else{
-				alert("멋진 아이디네요 ;-)")
-			}
-		})
-		emptyCheck()
-		//$("#form-submit").submit()
-	})
-	
-	$("#id").blur(function(){
-		idCheck = false
-		var id = $(this).val()
 		if(id.length < 1){
 			$.ajax({
 				url : "./memberIdCheck",
@@ -107,9 +109,24 @@
 				data : {id : id},
 				success : function(result){
 					data = data.trim()
-					var message = "이미 사용중인 ID입니다."
+					return data
 				}
 			})
+		}			
+	}
+
+	function pwMatchCheck(){
+		
+	}
+	
+
+	
+	$("#id").blur(function(){
+		var isDup = idDupCheck()
+		if(result == 1){
+			alert("이미 사용중인 아이디입니다")
+		}else{
+			alert("멋진 아이디네요 ;-)")
 		}
 	})
 	

@@ -8,12 +8,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../template/bootstrap.jsp"></c:import>
+
+<style >
+	#container-profileImg{
+		width: 200px;
+		height: 250px;
+		border: 2px gray solid;
+		margin-bottom: 50px;
+		overflow: auto;
+	}
+	#container-profileImg > img{
+		width: 100%;	
+	}
+	
+</style>
 </head>
 
 <body>
 <c:import url="../template/header.jsp"></c:import> 
 <div class="container">
 	<h3>Member Page</h3>
+	<div id="container-profileImg">
+		<img src="../resources/upload/member/${profileImg}"/>
+	</div>
 	<table class="table table-condensed">
 		<tr>
 			<th>ID: </th>

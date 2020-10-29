@@ -1,9 +1,15 @@
 package com.maggie.s4.board.notice;
 
+import java.io.File;
+import java.util.Calendar;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.maggie.s4.board.BoardDTO;
 import com.maggie.s4.board.BoardService;
@@ -15,7 +21,23 @@ public class NoticeService implements BoardService{
 	private NoticeDAO noticeDAO;
 
 	@Override
-	public int setInsert(BoardDTO boardDTO) throws Exception {
+	public int setInsert(BoardDTO boardDTO, MultipartFile photo, HttpSession session) throws Exception {
+		String path = session.getServletContext().getRealPath("/resources/upload/member");
+		System.out.println(path);
+		File dir = new File(path);
+		if(!dir.exists()){
+			dir.mkdirs();
+		}
+		
+		Calendar ca = Calendar.getInstance();
+		long time = ca.getTimeInMillis();
+		String fname = photo.getOriginalFilename();
+		fname = time + "_" + fname;
+		
+		byte [] arr = photo.getBytes();
+		File file = new File(path, fname);
+		FileCopyUtils.copy(arr, file);
+		
 		return noticeDAO.setInsert(boardDTO);
 	}
 

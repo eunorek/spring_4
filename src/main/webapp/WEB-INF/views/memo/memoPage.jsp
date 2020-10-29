@@ -120,12 +120,17 @@ table{
 			success : function(result){
 				result = result.trim()
 				var message = "글이 등록되었습니다."
-				$("#writer").val("")
-				$("#contents").val("")
-				$("#result").empty()
-				curPage = 1
-				alert(message)
-				getList()
+
+				if(result.length > 0){
+					$("#result").empty()				
+					$("#writer").val("")
+					$("#contents").val("")								
+					curPage = 1					
+					getList()
+				}else{
+					message = "오류:등록에 실패했습니다."	
+				}
+				alert(message)				
 			}
 			
 		})

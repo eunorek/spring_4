@@ -2,12 +2,15 @@ package com.maggie.s4.board.notice;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.maggie.s4.board.BoardDTO;
@@ -44,14 +47,14 @@ public class NoticeController {
 	
 	// submit from notice Write page
 	@PostMapping("noticeWrite")
-	public ModelAndView setInsert(BoardDTO boardDTO) throws Exception {
+	public ModelAndView setInsert(BoardDTO boardDTO, HttpSession session, MultipartFile photo) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		int result = noticeService.setDelete(boardDTO);
+		int result = noticeService.setInsert(boardDTO, photo, session);
 		String path = "./noticeList";
 		
-		String message = "글 삭제에 실패했습니다";
+		String message = "글이 등록되었습니다.";
 		if(result > 0) {
-			message = "글이 삭제되었습니다";
+			message = "오류:글 등록에 실패했습니다.";
 		}
 		mv.addObject("message", message);
 		mv.addObject("path", path);
@@ -67,5 +70,21 @@ public class NoticeController {
 		mv.addObject(boardDTO);
 		mv.setViewName("board/boardSelect");
 		return mv;
+	}
+	
+	@PostMapping("noticeDelete")
+	public ModelAndView setDelete(BoardDTO boardDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		int result = noticeService.setDelete(boardDTO);
+		String path = "./noticeList";
+		
+		String message = "글 삭제에 실패했습니다";
+		if(result > 0) {
+			message = "글이 삭제되었습니다";
+		}
+		mv.addObject("message", message);
+		mv.addObject("path", path);
+		mv.setViewName("common/result");
+		return mv;		
 	}
 }

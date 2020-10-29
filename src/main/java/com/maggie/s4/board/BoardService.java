@@ -2,11 +2,15 @@ package com.maggie.s4.board;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.maggie.s4.util.Pager;
 
 public interface BoardService {
 	//insert
-	public int setInsert(BoardDTO boardDTO) throws Exception;
+	public int setInsert(BoardDTO boardDTO, MultipartFile photo, HttpSession session) throws Exception;
 	
 	
 	//update
