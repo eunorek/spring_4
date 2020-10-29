@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.maggie.s4.member.MemberDTO;
+import com.maggie.s4.member.memberFile.MemberFileDTO;
 
 @Controller
 @RequestMapping(value="/member/**")
@@ -50,8 +52,16 @@ public class MemberUserController {
 	}
 	
 	@GetMapping("memberPage")
-	public ModelAndView getMemberPage() throws Exception {
+	public ModelAndView getMemberPage(HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		MemberFileDTO memberFileDTO = memberUserService.getMemberImageName(memberDTO);
+		String profileImg = "no_profile.jpg";
+		if(!(memberFileDTO==null)) {
+			profileImg = memberFileDTO.getFileName();
+		}
+		
+		mv.addObject("profileImg", profileImg);
 		mv.setViewName("member/memberPage");
 		return mv;
 	}
@@ -109,9 +119,10 @@ public class MemberUserController {
 	}
 	
 	@PostMapping("memberJoin")
-	public ModelAndView setMemberJoin(MemberDTO memberDTO, HttpSession session) throws Exception {
+	public ModelAndView setMemberJoin(MemberDTO memberDTO, HttpSession session, MultipartFile photo) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		int result = memberUserService.setMemberInsert(memberDTO);
+		
+		int result = memberUserService.setMemberInsert(memberDTO, photo, session);
 		String message = "오류: 회원 가입에 실패했습니다.";
 		String path = "redirect:../";
 		if(result > 0) {
@@ -120,6 +131,19 @@ public class MemberUserController {
 		mv.addObject("message", message);
 		mv.addObject("path", path);
 		mv.setViewName("common/result");		
+		return mv;
+	}
+	
+	@GetMapping("memberIdCheck")
+	public ModelAndView getMemberIdCheck(MemberDTO memberDTO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		memberDTO = memberUserService.getMemberIdCheck(memberDTO);
+		int result = 1; // id already exists
+		if(memberDTO == null) {
+			result = 0;
+		}
+		mv.addObject("message", result);
+		mv.setViewName("common/ajaxResult");
 		return mv;
 	}
 	

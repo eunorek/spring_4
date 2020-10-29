@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.maggie.s4.board.memo.MemoDAO" >
+	<select id="getList" parameterType="Pager" resultType="MemoDTO">
+		SELECT * FROM
+		(SELECT rownum R, N.* FROM
+			(SELECT * FROM memo WHERE
+				<choose>
+					<when test="kind == 'wr'">
+						writer 
+					</when>
+					<otherwise>
+						contents 
+					</otherwise>
+				</choose>
+			LIKE '%' || #{search} || '%' ORDER BY num DESC) N)
+		WHERE R BETWEEN #{startRow} and #{lastRow}	
+	</select>
+	<select id="getOne" parameterType="MemoDTO" resultType="MemoDTO">
+		SELECT * FROM memo
+		WHERE num=#{num}
+	</select>
+	
+	<select id="getCount" resultType="Long" parameterType="Pager">
+		SELECT COUNT(num) FROM memo
+		WHERE
+			<choose>
+				<when test="kind == 'wr'">
+					writer
+				</when>
+				<otherwise>
+					contents
+				</otherwise>
+			</choose>	
+			LIKE '%' || #{search} || '%'	
+	</select>	
+	
+	<insert id="setInsert" parameterType="MemoDTO">
+		INSERT INTO memo VALUES(memo_seq.NEXTVAL, #{writer}, #{contents}, sysdate)
+	</insert>
+	
+	<delete id="setDelete" parameterType="MemoDTO">
+		DELETE FROM memo  
+		WHERE num=#{num}
+	</delete>
+	
+</mapper>

@@ -30,6 +30,10 @@
 	      <label for="contents">Contents:</label>
 	      <textarea class="form-control" rows="10" id="contents" name="contents"></textarea>
 	    </div>
+	    <div class="form-group">
+	      <label for="file">File:</label>
+	      <input type="file" class="form-control" id="file" placeholder="Upload File" name="file"/>
+	    </div>	    
 	    <c:if test="${not empty member}">
 	    	<input type="button" value="write" class="btn btn-primary" id="btn-write" style="visibility: hidden"/>
 	    </c:if>	    

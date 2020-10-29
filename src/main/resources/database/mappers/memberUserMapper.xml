@@ -28,4 +28,9 @@
 		INSERT INTO member VALUES(member_seq.NEXTVAL, #{id}, #{pw}, #{name}, #{email})
 	</insert>
 	
+	<select id="getMemberIdCheck" parameterType="MemberDTO" resultType="MemberDTO">
+		SELECT id FROM member 
+		WHERE id=#{id}
+	</select>
+	
 </mapper>

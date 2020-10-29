@@ -13,8 +13,13 @@
 		<typeAlias type="com.maggie.s4.board.BoardDTO" alias="BoardDTO"/>
 		<typeAlias type="com.maggie.s4.board.notice.NoticeDTO" alias="NoticeDTO"/>
 		<typeAlias type="com.maggie.s4.board.qna.QnaDTO" alias="QnaDTO"/>
+		
 		<typeAlias type="com.maggie.s4.member.MemberDTO" alias="MemberDTO"/>
 		<typeAlias type="com.maggie.s4.member.memberUser.MemberUserDTO" alias="MemberUserDTO"/>
+		<typeAlias type="com.maggie.s4.member.memberFile.MemberFileDTO" alias="MemberFileDTO"/>
+		
+		<typeAlias type="com.maggie.s4.board.memo.MemoDTO" alias="MemoDTO"/>
+		
 	</typeAliases>
 	
 </configuration>
