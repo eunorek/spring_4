@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.maggie.s4.board.BoardDAO;
 import com.maggie.s4.board.BoardDTO;
+import com.maggie.s4.board.file.BoardFileDTO;
 import com.maggie.s4.util.Pager;
 
 @Repository
@@ -20,6 +21,15 @@ public class NoticeDAO implements BoardDAO{
 	@Override
 	public int setInsert(BoardDTO boardDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE+"setInsert", boardDTO);
+	}
+	
+	public int setInsertFile(BoardFileDTO boardFileDTO) throws Exception {
+		System.out.println("DAO!!!!");
+		System.out.println(boardFileDTO.getFileNum());
+		System.out.println(boardFileDTO.getNum());
+		System.out.println(boardFileDTO.getFileName());
+		System.out.println(boardFileDTO.getOrigName());
+		return sqlSession.insert(NAMESPACE+"setInsertFile", boardFileDTO);
 	}
 	
 	@Override

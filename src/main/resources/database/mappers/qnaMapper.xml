@@ -29,12 +29,40 @@
 			</choose>
 			like '%'||#{search}||'%'
 	</select>
-	<select id="getSelect" parameterType="QnaDTO" resultType="QnaDTO">
-		SELECT * FROM qna WHERE num = #{num}
+
+	<resultMap type="QnaDTO" id="getOneResult">
+		<id column="num" property="num"/>
+		<result column="title" property="title"/>
+		<result column="writer" property="writer"/>
+		<result column="contents" property="contents"/>
+		<result column="regDate" property="regDate"/>
+		<result column="hit" property="hit"/>
+		<collection property="boardFileDTOs" ofType="BoardFileDTO" javaType="java.util.List">
+			<id column="fileNum" property="fileNum"/>
+			<result column="fileName" property="fileName"/>
+			<result column="origName" property="origName"/>
+		</collection>
+	</resultMap>
+	
+	<select id="getOne" parameterType="QnaDTO" resultMap="getOneResult">
+		SELECT Q.*, QF.*
+		FROM qna Q LEFT JOIN qnaFile QF
+		on Q.num = QF.num
+		WHERE Q.num=#{num}
 	</select>
-	<insert id="setWrite" parameterType="QnaDTO">
-		INSERT INTO qna values(qna_seq.NEXTVAL, #{title}, #{writer}, #{contents}, sysDate, 0, 0, 0, 0)
+	
+	
+	<insert id="setInsert" parameterType="QnaDTO">
+		<selectKey keyProperty="num" resultType="Long" order="BEFORE">
+			SELECT qna_seq.NEXTVAL from dual
+		</selectKey>
+		INSERT INTO qna values(#{num}, #{title}, #{writer}, #{contents}, sysDate, 0, 0, 0, 0)
 	</insert>
+
+	<insert id="setInsertFile" parameterType="BoardFileDTO">
+		INSERT INTO qnafile VALUES(qna_seq.NEXTVAL, #{num}, #{fileName}, #{origName})
+	</insert>
+	
 	<insert id="setReply" parameterType="QnaDTO">
 		INSERT INTO qna values(qna_seq.NEXTVAL, #{title}, #{writer}, #{contents}, sysDate, 0, #{ref}, #{step}, #{depth})
 	</insert>

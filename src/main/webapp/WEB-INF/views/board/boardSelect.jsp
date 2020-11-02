@@ -19,8 +19,10 @@
 		<h3>Content	: ${dto.contents }</h3>
 		<input type="button" value="Delete" class="btn btn-danger" id="del" title="${dto.num}" />
 		<input type="button" value="Update" class="btn btn-primary" id="update" />
-		<c:if test="${board == ''}">
-		</c:if>
+		<c:forEach items="${dto.boardFileDTOs}" var="file">
+			<h3><a href="./fileDown?fileName=${file.fileName}&origName=${file.origName}">${file.origName}</a></h3>
+
+		</c:forEach>
 		<input type="button" value="Reply" class="btn btn-secondary" id="reply" title="${dto.num}"/>
 	</div>
 	<script type="text/javascript">

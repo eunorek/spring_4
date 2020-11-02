@@ -1,10 +1,21 @@
 package com.maggie.s4.board.qna;
 
+import java.util.List;
+
 import com.maggie.s4.board.BoardDTO;
+import com.maggie.s4.board.file.BoardFileDTO;
 
 public class QnaDTO extends BoardDTO{
 	private long ref, step, depth;
+	private List<BoardFileDTO> boardFileDTOs;
 
+	public List<BoardFileDTO> getBoardFileDTOs() {
+		return boardFileDTOs;
+	}
+
+	public void setBoardFileDTOs(List<BoardFileDTO> boardFileDTOs) {
+		this.boardFileDTOs = boardFileDTOs;
+	}
 	public long getRef() {
 		return ref;
 	}

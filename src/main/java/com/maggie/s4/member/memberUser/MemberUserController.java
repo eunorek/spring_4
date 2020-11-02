@@ -26,7 +26,6 @@ public class MemberUserController {
 	}
 	
 
-	@SuppressWarnings("unused")
 	@PostMapping("memberLogin")
 	public ModelAndView setMemberLogin(MemberDTO memberDTO, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();		
@@ -56,8 +55,8 @@ public class MemberUserController {
 		ModelAndView mv = new ModelAndView();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		MemberFileDTO memberFileDTO = memberUserService.getMemberImageName(memberDTO);
-		String profileImg = "no_profile.jpg";
-		if(!(memberFileDTO==null)) {
+		String profileImg = null;
+		if(memberFileDTO!=null) {
 			profileImg = memberFileDTO.getFileName();
 		}
 		
