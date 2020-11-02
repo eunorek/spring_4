@@ -10,7 +10,7 @@ import com.maggie.s4.util.Pager;
 
 public interface BoardService {
 	//insert
-	public int setInsert(BoardDTO boardDTO, MultipartFile photo, HttpSession session) throws Exception;
+	public int setInsert(BoardDTO boardDTO, MultipartFile[] files, HttpSession session) throws Exception;
 	
 	
 	//update

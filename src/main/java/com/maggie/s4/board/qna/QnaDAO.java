@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.maggie.s4.board.BoardDAO;
 import com.maggie.s4.board.BoardDTO;
+import com.maggie.s4.board.file.BoardFileDTO;
 import com.maggie.s4.util.Pager;
 
 @Repository
@@ -44,6 +45,16 @@ public class QnaDAO implements BoardDAO{
 	@Override
 	public long getCount(Pager pager) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"getCount", pager);
+	}
+
+	public int setInsertFile(BoardFileDTO boardFileDTO) {
+		return sqlSession.insert(NAMESPACE+"setInsertFile", boardFileDTO);
+		
+	}
+
+	public int setReply(BoardDTO boardDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(NAMESPACE+"setInsertFile", boardDTO);
 	}
 	
 }

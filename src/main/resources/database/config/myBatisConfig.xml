@@ -20,6 +20,8 @@
 		
 		<typeAlias type="com.maggie.s4.board.memo.MemoDTO" alias="MemoDTO"/>
 		
+		<typeAlias type="com.maggie.s4.board.file.BoardFileDTO" alias="BoardFileDTO"/>
+		
 	</typeAliases>
 	
 </configuration>

@@ -10,15 +10,14 @@
 <c:import url="../template/bootstrap.jsp"></c:import>
 
 <style >
-	#container-profileImg{
-		width: 200px;
+	#container-profile-img{
 		height: 250px;
 		border: 2px gray solid;
 		margin-bottom: 50px;
-		overflow: auto;
+		display: inline-block;
 	}
-	#container-profileImg > img{
-		width: 100%;	
+	#container-profile-img > img{
+		height: 100%;	
 	}
 	
 </style>
@@ -28,8 +27,8 @@
 <c:import url="../template/header.jsp"></c:import> 
 <div class="container">
 	<h3>Member Page</h3>
-	<div id="container-profileImg">
-		<img src="../resources/upload/member/${profileImg}"/>
+	<div id="container-profile-img">
+		<img src="../resources/upload/member/${profileImg}" id="profile-img"/>
 	</div>
 	<table class="table table-condensed">
 		<tr>
@@ -48,6 +47,13 @@
 	<a href="./memberUpdate" class="btn btn-info" role="button">수정</a>
 	<a href="./memberDelete" class="btn btn-danger" role="button">회원 탈퇴</a>	
 	
+<script type="text/javascript">
+
+	$("#profile-img").on("error", function(){
+		$(this).attr("src", "../resources/images/common/no_profile_image.jpg")
+	})
+
+</script>	
 	
 </div>
 </body>

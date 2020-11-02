@@ -47,14 +47,15 @@ public class NoticeController {
 	
 	// submit from notice Write page
 	@PostMapping("noticeWrite")
-	public ModelAndView setInsert(BoardDTO boardDTO, HttpSession session, MultipartFile photo) throws Exception {
+	public ModelAndView setInsert(BoardDTO boardDTO, MultipartFile[] files, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		int result = noticeService.setInsert(boardDTO, photo, session);
+		
+		int result = noticeService.setInsert(boardDTO, files, session);	
 		String path = "./noticeList";
 		
-		String message = "글이 등록되었습니다.";
+		String message = "오류:글 등록에 실패했습니다.";
 		if(result > 0) {
-			message = "오류:글 등록에 실패했습니다.";
+			message = "글이 등록되었습니다";
 		}
 		mv.addObject("message", message);
 		mv.addObject("path", path);
@@ -66,8 +67,9 @@ public class NoticeController {
 	@GetMapping("noticeSelect")
 	public ModelAndView getOne(BoardDTO boardDTO) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		System.out.println("num: "+boardDTO.getNum());
 		boardDTO = noticeService.getOne(boardDTO);
-		mv.addObject(boardDTO);
+		mv.addObject("dto", boardDTO);
 		mv.setViewName("board/boardSelect");
 		return mv;
 	}
