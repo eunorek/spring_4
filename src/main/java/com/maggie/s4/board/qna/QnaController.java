@@ -1,5 +1,6 @@
 package com.maggie.s4.board.qna;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -109,5 +110,39 @@ public class QnaController {
 		mv.setViewName("fileDown");
 		return mv;
 	}
+	
+	@GetMapping("qnaUpdate")
+	public ModelAndView setUpdate(BoardDTO boardDTO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		boardDTO = qnaService.getOne(boardDTO);
+		mv.addObject("dto", boardDTO);
+		return mv;
+	}
+	
+	@PostMapping("summernote")
+	public ModelAndView summernote(MultipartFile file, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		String fname = qnaService.summernote(file, session);
+		
+		String sep = File.separator;
+		String name = session.getServletContext().getContextPath() + sep;
+		name = name + "resources" + sep + "upload" + sep + "qna" + sep + fname;
+		
+		System.out.println(file.getOriginalFilename());
+		System.out.println(file.getSize());
+		mv.addObject("message", name);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	@PostMapping("summernoteDelete")
+	public ModelAndView summernoteDelete(String file, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		boolean result = qnaService.summernoteDelete(file, session);
+		mv.addObject("message", result);
+		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
 	
 }

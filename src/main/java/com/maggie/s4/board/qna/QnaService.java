@@ -52,8 +52,9 @@ public class QnaService implements BoardService {
 		String dir = "qna";
 		File dest = fileSaver.getDestinationFile(session, dir);
 		
-		for(MultipartFile f:files) {
-			if(f.getSize() < 1) {
+		for(int i = 0; i < files.length ; i++) {
+			MultipartFile f = files[i];
+			if(f.getSize() < 1 || i==0) {
 				continue;
 			}
 			String fname = fileSaver.saveTransfer(dest, f);
@@ -69,5 +70,24 @@ public class QnaService implements BoardService {
 	
 	public int setReply(BoardDTO boardDTO) throws Exception {
 		return qnaDAO.setReply(boardDTO);
+	}
+	
+	public String summernote(MultipartFile file, HttpSession session) throws Exception {
+		String dir = "qna";
+		File dest = fileSaver.getDestinationFile(session, dir);
+		
+		String fname = fileSaver.saveTransfer(dest, file);
+		System.out.println(fname);
+		return fname;
+	}
+	
+	public boolean summernoteDelete(String file, HttpSession session) {
+		String path = session.getServletContext().getRealPath("/resources/upload/qna");
+		File file2 = new File(path, file);
+		boolean result = false;
+		if(file2.exists()) {
+			result = file2.delete();
+		}
+		return result;
 	}
 }

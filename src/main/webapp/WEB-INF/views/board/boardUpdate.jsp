@@ -11,6 +11,9 @@
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script type="text/javascript">
+
+</script>
 
 <style type="text/css">
 #files-container{
@@ -32,9 +35,7 @@
 	vertical-align: middle;
 }
 
-#contents{
-	height: 300px;
-}
+
 
 </style>
 </head>
@@ -42,8 +43,8 @@
 	<c:import url="../template/header.jsp"></c:import>
 
 	<div class="container">
-		<h2>${board} Write Form</h2>
-		<form action="./${board}Write" method="post" id="frm" enctype="multipart/form-data">
+		<h2>${board} Update Form</h2>
+		<form action="./${board}Update" method="post" id="frm" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="title">Title:</label> <input type="text"
 					class="form-control" id="title" placeholder="Enter Title"
@@ -52,7 +53,7 @@
 
 			<div class="form-group">
 				<label for="writer">Writer:</label> <input type="text"
-					class="form-control" id="writer" placeholder="Enter Writer"
+					class="form-control" id="writer" value="${dto.writer}" readonly="readonly"
 					name="writer">
 			</div>
 
@@ -78,77 +79,15 @@
 	</div>
 	<script type="text/javascript" src="../resources/js/boardWrite.js"></script>
 	<script type="text/javascript">
-		var fileCount = 0
-		var maxFileUpload = 5	
+
 		$('#contents').summernote({
-			height:300,
-			callbacks:{
-				onImageUpload:function(files, editor,welEditable){
-					var formData = new FormData()	// 가상의 form 태그
-					formData.append('file', files[0]) // param name: file
-					
-					$.ajax({
-			
-						type:"POST",
-						url:"summernote",
-						data:formData,
-						enctype:"multipart/form-data",
-						contentType:false,
-						cache:false,
-						processData:false,
-						success:function(data){
-							data = data.trim()
-							$("#contents").summernote('editor.insertImage', data)
-							
-						}
-					})
-				
-				},//upload end
-				
-				onMediaDelete:function(files){
-					var fileName = $(files[0]).attr("src")
-					fileName = fileName.substring(fileName.lastIndexOf("\\") + 1)
-					$.ajax({
-						type:"POST",
-						url: "./summernoteDelete",
-						data: {
-							file:fileName
-						},
-						success:function(data){
-							alert(data)
-						}
-						
-					})
-				}
-			}
+			height:300;
 		});
 	
 		if(${empty member}){	
 		}else if(${board == 'qna' || member.id == 'admin'}){
 			$("#btn-write").css("visibility", "visible")
 		}
-		
-		var fileTag = `
-			<div class="input-group">
-				<input type="file" class="attatched-file" name="files" />
-				<span class="input-group-addon del">삭제</span>
-			</div>`
-		
-		// appending a file entry
-		$("#file-add").click(function(){
-			if(fileCount < maxFileUpload){
-				$("#files-container").append(fileTag)	
-				fileCount++
-			}else{
-				alert("첨부파일 등록은 최대 5개까지 가능합니다")
-			}		
-		})
-		
-		// deleting a file entry clicked
-		$("#files-container").on("click", ".del", function(){
-			$(this).parent().remove()
-			fileCount--
-		})
 	</script>
 </body>
 </html>

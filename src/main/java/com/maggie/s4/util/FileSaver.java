@@ -22,7 +22,7 @@ public class FileSaver {
 		String fname = multipartFile.getOriginalFilename();
 		fname = time + "_" + fname;
 		
-		System.out.println(fname);
+		System.out.println(dest.getPath());
 		System.out.println("image size: " + multipartFile.getSize());
 		
 		// save photo	

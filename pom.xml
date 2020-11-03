@@ -15,14 +15,28 @@
 	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/jstl -->
-		<dependency>
+<!-- 		<dependency>
 		    <groupId>javax.servlet.jsp.jstl</groupId>
 		    <artifactId>jstl-api</artifactId>
 		    <version>1.2</version>
 		    <type>jar</type> 
 		</dependency>
+ -->
+		<dependency> 
+			<groupId>jstl</groupId> 
+			<artifactId>jstl</artifactId> 
+			<version>1.2</version> 
+			<scope>compile</scope> 
+		</dependency> 
+		<dependency> 
+		<groupId>taglibs</groupId> 
+			<artifactId>standard</artifactId> 
+			<version>1.1.2</version> 
+			<scope>compile</scope> 
+		</dependency>
+		
 
-	
+
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
@@ -161,7 +175,14 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
-		</dependency>        
+		</dependency>  
+		
+		<!-- Test error solver -->
+		<dependency> 
+			<groupId>org.springframework</groupId> 
+			<artifactId>spring-test</artifactId> 
+			<version>5.0.7.RELEASE</version> 
+		</dependency>    
 	</dependencies>
     <build>
         <plugins>
