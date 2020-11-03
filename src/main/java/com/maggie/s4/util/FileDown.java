@@ -9,11 +9,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
 import com.maggie.s4.board.file.BoardFileDTO;
 
+@Component
 public class FileDown extends AbstractView{
 	@Override
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
@@ -41,7 +43,7 @@ public class FileDown extends AbstractView{
 		String downName  = URLEncoder.encode(boardFileDTO.getOrigName(), "UTF-8");
 		
 		// header 설정
-		response.setHeader("Content-Disposition", "attachment:fileName=\"" + downName + "\"");
+		response.setHeader("Content-Disposition", "attachment;fileName=\"" + downName + "\"");
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		
 		// Client 전송
