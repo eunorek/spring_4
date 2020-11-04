@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,8 @@ public class QnaController {
 		System.out.println("QnaList!!!");
 		ModelAndView mv = new ModelAndView();
 		List<BoardDTO> arr = qnaService.getList(pager);
+//		arr = null;
+		BoardDTO boardDTO = arr.get(0);
 		
 		mv.addObject("list", arr);
 		mv.addObject("pager", pager);
@@ -141,6 +144,15 @@ public class QnaController {
 		boolean result = qnaService.summernoteDelete(file, session);
 		mv.addObject("message", result);
 		mv.setViewName("common/ajaxResult");
+		return mv;
+	}
+	
+	
+	@ExceptionHandler(NullPointerException.class)
+	public ModelAndView error1() {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("NullPointerException");
+		mv.setViewName("error/error_back");
 		return mv;
 	}
 	
