@@ -17,6 +17,6 @@
 		</c:if>				
 		<img alt="main image" src="./resources/images/index/image_01.jpg">
 	</div>
-	
+	<a href="./cookie/makeCookie">Cookie</a>
 </body>
 </html>

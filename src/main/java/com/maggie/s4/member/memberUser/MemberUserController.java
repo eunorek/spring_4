@@ -1,5 +1,8 @@
 package com.maggie.s4.member.memberUser;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +24,18 @@ public class MemberUserController {
 	private MemberUserService memberUserService;
 	
 	@GetMapping("memberLogin")
-	public String getMemberLogin() {
-		return "member/memberLogin";
+	public ModelAndView getMemberLogin(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/memberLogin");
+		return mv;
 	}
 	
 
 	@PostMapping("memberLogin")
-	public ModelAndView setMemberLogin(MemberDTO memberDTO, HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView();		
+	public ModelAndView setMemberLogin(MemberDTO memberDTO, String remember, HttpSession session, HttpServletResponse response) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		System.out.println("remember: " + remember);
+					
 		memberDTO = memberUserService.getMemberLogin(memberDTO);	
 		if(memberDTO != null) {
 			session.setAttribute("member", memberDTO);
@@ -37,6 +44,18 @@ public class MemberUserController {
 			mv.addObject("message", "로그인 실패");
 			mv.addObject("path", "./memberLogin");
 			mv.setViewName("common/result");
+		}
+		
+		// remember me: if not null: set cookie
+		if(remember != null) {
+			Cookie cookie = new Cookie("remember", memberDTO.getId());
+			cookie.setDomain("/member/memberLogin");
+			// "/" : 이 사이트 내에서는 어디서든 사용 가능.
+			response.addCookie(cookie);
+		}else {
+			Cookie cookie = new Cookie("remember", "");
+			cookie.setMaxAge(0);
+			response.addCookie(cookie);
 		}
 		return mv;
 	}
