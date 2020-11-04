@@ -30,4 +30,28 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+  <filter>
+  	<filter-name>encode</filter-name>
+  	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+  </filter>
+  
+  <filter>
+    <display-name>TestFilter</display-name>
+    <filter-name>TestFilter</filter-name>
+    <filter-class>com.maggie.s4.filter.TestFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>TestFilter</filter-name>
+    <url-pattern>/qna/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>NoticeFilter</display-name>
+    <filter-name>NoticeFilter</filter-name>
+    <filter-class>com.maggie.s4.filter.NoticeFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>NoticeFilter</filter-name>
+    <url-pattern>/NoticeFilter</url-pattern>
+  </filter-mapping>
+
 </web-app>
