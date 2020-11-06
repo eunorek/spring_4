@@ -22,6 +22,23 @@
 		    <type>jar</type> 
 		</dependency>
  -->
+ 		<!-- 트랜잭션 관리자 설정  -->
+ 	
+<!--  		<bean class="org.springframework.jdbx.datasource." id="transactionManager">
+ 			<property name="dataSource" ref="dataSource"></property>
+ 		</bean>
+ 		Transaction Advice Setting
+ 		<tx:advice id="txAdvice" transaction-manager="transactionManager">
+ 			<tx:attributes>
+ 				<tx:method name="*" rollback-for="Exception"/>
+ 			</tx:attributes>
+ 		</tx:advice>
+ 		Transaction 적용.
+ 		<aop:config>
+ 			<aop:pointcut expression=""/>
+ 		</aop:config> -->
+ 		
+ 		
 		<dependency>  
 			<groupId>jstl</groupId> 
 			<artifactId>jstl</artifactId> 
