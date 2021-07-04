@@ -115,7 +115,10 @@ public class QnaController {
 	public ModelAndView setUpdate(BoardDTO boardDTO) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		boardDTO = qnaService.getOne(boardDTO);
+		
+		mv.addObject("board");
 		mv.addObject("dto", boardDTO);
+		mv.setViewName("board/boardUpdate");
 		return mv;
 	}
 	
